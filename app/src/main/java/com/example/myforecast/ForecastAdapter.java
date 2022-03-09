@@ -29,9 +29,9 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
     @Override
     public void onBindViewHolder(@NonNull ForecastAdapter.ForecastViewHolder holder, int position) {
         holder.datetime.setText(String.valueOf(mForecastData.get(0).getForecastData().get(position).getDateTime()));
-        holder.temperature.setText(String.valueOf(mForecastData.get(0).getForecastData().get(0).getMainData().getTemperature()));
-        holder.pressure.setText(String.valueOf(mForecastData.get(0).getForecastData().get(0).getMainData().getPressure()));
-        holder.humidity.setText(String.valueOf(mForecastData.get(0).getForecastData().get(0).getMainData().getHumidity()));
+        holder.temperature.setText(String.valueOf("Temperature: "+mForecastData.get(0).getForecastData().get(position).getMainData().getTemperature()));
+        holder.pressure.setText(String.valueOf("Pressure: "+mForecastData.get(0).getForecastData().get(position).getMainData().getPressure()));
+        holder.humidity.setText(String.valueOf("Humidity: "+mForecastData.get(0).getForecastData().get(position).getMainData().getHumidity()));
     }
 
     @Override
