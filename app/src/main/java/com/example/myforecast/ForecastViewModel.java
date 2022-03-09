@@ -18,7 +18,7 @@ public class ForecastViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<List<ForecastModel>> getRecentForecast(){
-        mForecastTest = mForecastRepository.getRecentForecast(36, 136, BuildConfig.API_KEY);
+        mForecastTest = mForecastRepository.getRecentForecast(36, 136, BuildConfig.API_KEY, "metric");
         return mForecastTest;
     }
 }
