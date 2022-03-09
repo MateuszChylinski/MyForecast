@@ -27,8 +27,9 @@ public class ForecastRepository {
         mApi = RetrofitBuilder.getRetrofitInstance().create(ApiService.class);
     }
 
-    public MutableLiveData<List<ForecastModel>> getRecentForecast(int lat, int lon, String apiKey){
-        Call<ForecastModel> forecast = mApi.getRecentForecast(lat, lon, apiKey);
+    //TODO Get user location - latitude, longitude
+    public MutableLiveData<List<ForecastModel>> getRecentForecast(int lat, int lon, String apiKey, String units){
+        Call<ForecastModel> forecast = mApi.getRecentForecast(lat, lon, apiKey, units);
         forecast.enqueue(new Callback<ForecastModel>() {
             @Override
             public void onResponse(Call<ForecastModel> call, Response<ForecastModel> response) {
