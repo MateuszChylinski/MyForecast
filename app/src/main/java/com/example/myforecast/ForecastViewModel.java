@@ -1,5 +1,6 @@
 package com.example.myforecast;
 
+import android.Manifest;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,8 @@ import java.util.List;
 public class ForecastViewModel extends AndroidViewModel {
     private ForecastRepository mForecastRepository;
     private MutableLiveData<List<ForecastModel>> mForecastTest = new MutableLiveData<>();
+
+    private int locationRequestCode;
 
     public ForecastViewModel(@NonNull Application application) {
         super(application);

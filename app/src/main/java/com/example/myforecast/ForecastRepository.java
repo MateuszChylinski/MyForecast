@@ -1,5 +1,13 @@
 package com.example.myforecast;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.Collections;
@@ -14,21 +22,23 @@ public class ForecastRepository {
     private static final MutableLiveData<List<ForecastModel>> liveData = new MutableLiveData<>();
     private static final String TAG = "ForecastRepository";
 
+    private int mLatitude, mLongitude;
+
     private static ForecastRepository forecastRepository;
 
-    public static ForecastRepository getInstance(){
-        if (forecastRepository == null){
+    public static ForecastRepository getInstance() {
+        if (forecastRepository == null) {
             forecastRepository = new ForecastRepository();
         }
         return forecastRepository;
     }
 
-    public ForecastRepository(){
+    public ForecastRepository() {
         mApi = RetrofitBuilder.getRetrofitInstance().create(ApiService.class);
     }
 
     //TODO Get user location - latitude, longitude
-    public MutableLiveData<List<ForecastModel>> getRecentForecast(int lat, int lon, String apiKey, String units){
+    public MutableLiveData<List<ForecastModel>> getRecentForecast(int lat, int lon, String apiKey, String units) {
         Call<ForecastModel> forecast = mApi.getRecentForecast(lat, lon, apiKey, units);
         forecast.enqueue(new Callback<ForecastModel>() {
             @Override
@@ -40,7 +50,7 @@ public class ForecastRepository {
             public void onFailure(Call<ForecastModel> call, Throwable t) {
                 t.printStackTrace();
             }
-            });
-            return liveData;
-        }
+        });
+        return liveData;
     }
+}
