@@ -1,6 +1,7 @@
 package com.example.myforecast;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,10 +34,12 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
     @Override
     public void onBindViewHolder(@NonNull ForecastAdapter.ForecastViewHolder holder, int position) {
         holder.datetime.setText(converseDate(mForecastData.get(0).getForecastData().get(position).getDateTime()));
-
         holder.temperature.setText(String.format("Temperature: %.0f\u2103", mForecastData.get(0).getForecastData().get(position).getMainData().getTemperature()));
         holder.pressure.setText(String.format("Pressure: %d hPa ", mForecastData.get(0).getForecastData().get(position).getMainData().getPressure()));
         holder.humidity.setText(String.format("Humidity: %d%%", mForecastData.get(0).getForecastData().get(position).getMainData().getHumidity()));
+
+        //TODO add picasso library to display forecast icons
+
     }
 
     @Override
