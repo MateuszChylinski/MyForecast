@@ -38,7 +38,7 @@ public class ForecastRepository {
     }
 
     //TODO Get user location - latitude, longitude
-    public MutableLiveData<List<ForecastModel>> getRecentForecast(int lat, int lon, String apiKey, String units) {
+    public MutableLiveData<List<ForecastModel>> getRecentForecast(double lat, double lon, String apiKey, String units) {
         Call<ForecastModel> forecast = mApi.getRecentForecast(lat, lon, apiKey, units);
         forecast.enqueue(new Callback<ForecastModel>() {
             @Override
