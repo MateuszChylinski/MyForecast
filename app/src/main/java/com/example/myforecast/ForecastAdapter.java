@@ -1,5 +1,6 @@
 package com.example.myforecast;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +10,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastViewHolder> {
     private List<ForecastModel> mForecastData = new ArrayList<>();
+    private IconLoader mIconLoader = new IconLoader();
+    private static final String TAG = "ForecastAdapter";
+
+
 
     public ForecastAdapter(List<ForecastModel> forecastData) {
         this.mForecastData = forecastData;
@@ -32,6 +39,17 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
         holder.temperature.setText(String.valueOf("Temperature: "+mForecastData.get(0).getForecastData().get(position).getMainData().getTemperature()));
         holder.pressure.setText(String.valueOf("Pressure: "+mForecastData.get(0).getForecastData().get(position).getMainData().getPressure()));
         holder.humidity.setText(String.valueOf("Humidity: "+mForecastData.get(0).getForecastData().get(position).getMainData().getHumidity()));
+        Log.i(TAG, "onBindViewHolder: "+
+                "http://openweathermap.org/img/wn/"+
+                mForecastData.get(0).getForecastData().get(position).getWeather().get(0).getIconId()
+                +"@2x.png");
+
+        Picasso.get()
+
+                .load("https://openweathermap.org/img/wn/"+
+                mForecastData.get(0).getForecastData().get(position).getWeather().get(0).getIconId()
+                +"@4x.png")
+                .into(holder.forecastIcon);
     }
 
     @Override

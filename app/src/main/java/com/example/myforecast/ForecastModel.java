@@ -19,6 +19,8 @@ class ForecastModel {
         private int dateTime;
         @SerializedName("main")
         private mainData mainData = null;
+        @SerializedName("weather")
+        private List<Weather> weather = null;
 
         public int getDateTime() {
             return dateTime;
@@ -26,6 +28,9 @@ class ForecastModel {
 
         public ForecastModel.mainData getMainData() {
             return mainData;
+        }
+        public List<Weather> getWeather(){
+            return weather;
         }
     }
 
@@ -47,6 +52,33 @@ class ForecastModel {
 
         public int getHumidity() {
             return humidity;
+        }
+    }
+
+    public class Weather{
+        @SerializedName("id")
+        private int forecastId;
+        @SerializedName("main")
+        private String mainDescription;
+        @SerializedName("description")
+        private String fullDescription;
+        @SerializedName("icon")
+        private String iconId;
+
+        public int getForecastId() {
+            return forecastId;
+        }
+
+        public String getMainDescription() {
+            return mainDescription;
+        }
+
+        public String getFullDescription() {
+            return fullDescription;
+        }
+
+        public String getIconId() {
+            return iconId;
         }
     }
 }
