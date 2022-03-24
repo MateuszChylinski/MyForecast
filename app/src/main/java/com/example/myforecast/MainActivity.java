@@ -47,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
 
         getUserLocation();
     }
+// ========================================================================
+// ======================GUNWO=BRANCH=CHANGES=XDDD========================
+// ========================================================================
 //    public void checkPermissions() {
 //        if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
 //            new AlertDialog.Builder(this)
