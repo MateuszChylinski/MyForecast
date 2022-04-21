@@ -13,8 +13,6 @@ public class ForecastViewModel extends AndroidViewModel {
     private ForecastRepository mForecastRepository;
     private MutableLiveData<List<ForecastModel>> mForecastTest = new MutableLiveData<>();
 
-    private int locationRequestCode;
-
     public ForecastViewModel(@NonNull Application application) {
         super(application);
         mForecastRepository = ForecastRepository.getInstance();
