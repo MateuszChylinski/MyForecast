@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
         checkPermissions();
     }
-
     private void checkPermissions() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             new AlertDialog.Builder(this)
@@ -64,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
                     })
                     .create().show();
         } else {
+
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, request_code);
             getUserLocation();
         }
     }
@@ -80,23 +81,26 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
     private void getUserLocation() {
-        FusedLocationProviderClient client = LocationServices.getFusedLocationProviderClient(this);
-        client = LocationServices.getFusedLocationProviderClient(this);
+        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
+            checkPermissions();
         }
-        client.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
-                Log.i(TAG, "onSuccess: lat " + location.getLatitude() + " long " + location.getLongitude());
-                mLongitude = location.getLongitude();
-                mLatitude = location.getLatitude();
-
-                setupData(mLatitude, mLongitude);
+                if (location != null) {
+                    mLatitude = location.getLatitude();
+                    mLongitude = location.getLongitude();
+                    Log.i(TAG, "onSuccess: " + mLatitude + " " + mLongitude);
+                    setupData(mLatitude, mLongitude);
+                }
             }
         });
     }
+
 
     private void setupData(double latitude, double longitude) {
         mRecyclerView = findViewById(R.id.recycler_test);
