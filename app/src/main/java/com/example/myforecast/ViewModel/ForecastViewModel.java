@@ -1,11 +1,14 @@
-package com.example.myforecast;
+package com.example.myforecast.ViewModel;
 
-import android.Manifest;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
+
+import com.example.myforecast.BuildConfig;
+import com.example.myforecast.Model.ForecastModel;
+import com.example.myforecast.Repository.ForecastRepository;
 
 import java.util.List;
 

@@ -1,4 +1,6 @@
-package com.example.myforecast;
+package com.example.myforecast.API;
+
+import com.example.myforecast.Model.ForecastModel;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

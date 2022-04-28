@@ -1,4 +1,4 @@
-package com.example.myforecast;
+package com.example.myforecast.API;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

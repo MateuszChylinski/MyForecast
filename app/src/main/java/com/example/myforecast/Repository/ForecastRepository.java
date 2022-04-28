@@ -1,14 +1,10 @@
-package com.example.myforecast;
+package com.example.myforecast.Repository;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.widget.Toast;
-
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.MutableLiveData;
+
+import com.example.myforecast.API.ApiService;
+import com.example.myforecast.Model.ForecastModel;
+import com.example.myforecast.API.RetrofitBuilder;
 
 import java.util.Collections;
 import java.util.List;
