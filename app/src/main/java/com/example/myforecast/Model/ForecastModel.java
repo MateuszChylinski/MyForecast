@@ -18,10 +18,12 @@ public class ForecastModel {
 
     //     Entering current object, for the present forecast
     @SerializedName("current")
-    private Current current = null;
+    private Current current;
     //      Entering the "hourly" forecast
-    private List<Hourly> hourlyForecast = null;
+    @SerializedName("hourly")
+    private List<Hourly> hourlyForecast = new ArrayList<>();
     //      Entering the "daily" forecast
+    @SerializedName("daily")
     private List<Daily> dailyForecast = null;
 
 
@@ -47,9 +49,9 @@ public class ForecastModel {
         return dailyForecast;
     }
 
-    class Current{
+    public class Current{
         @SerializedName("dt")
-        private long dateTime;
+        private int dateTime;
         @SerializedName("sunrise")
         private long sunrise;
         @SerializedName("sunset")
@@ -79,7 +81,7 @@ public class ForecastModel {
         private List<Weather> weatherList = null;
 
 
-        public long getDateTime() {
+        public int getDateTime() {
             return dateTime;
         }
         public long getSunrise() {
@@ -125,9 +127,9 @@ public class ForecastModel {
 
 
 
-    class Hourly{
+    public class Hourly{
         @SerializedName("dt")
-        private long dateTime;
+        private int dateTime;
         @SerializedName("temp")
         private double temperature;
         @SerializedName("feels_like")
@@ -151,12 +153,12 @@ public class ForecastModel {
         @SerializedName("wind_gust")
         private double windGust;
         @SerializedName("pop")
-        private int pop;
+        private double pop;
 //      Access the "Weather" list data inside the hourly object list
         @SerializedName("weather")
         private List<Weather> weatherList;
 
-        public long getDateTime() {
+        public int getDateTime() {
             return dateTime;
         }
         public double getTemperature() {
@@ -192,7 +194,7 @@ public class ForecastModel {
         public double getWindGust() {
             return windGust;
         }
-        public int getPop() {
+        public double getPop() {
             return pop;
         }
         public List<Weather> getWeatherList() {
@@ -200,23 +202,23 @@ public class ForecastModel {
         }
     }
 
-    class Daily{
+    public class Daily{
         @SerializedName("dt")
-        private long dateTime;
+        private int dateTime;
         @SerializedName("sunrise")
-        private double temperature;
+        private int sunrise;
         @SerializedName("sunset")
-        private double feelsLike;
+        private int sunset;
         @SerializedName("moonrise")
-        private int pressure;
+        private int moonrise;
         @SerializedName("moonset")
-        private int humidity;
+        private int moonset;
         @SerializedName("moon_phase")
         private double moonPhase;
         @SerializedName("clouds")
         private int clouds;
         @SerializedName("pop")
-        private int pop;
+        private double pop;
         @SerializedName("uvi")
         private double uvi;
         @SerializedName("dew_point")
@@ -230,20 +232,20 @@ public class ForecastModel {
         @SerializedName("weather")
         private List<Weather> weatherList = null;
 
-        public long getDateTime() {
+        public int getDateTime() {
             return dateTime;
         }
-        public double getTemperature() {
-            return temperature;
+        public int getSunrise() {
+            return sunrise;
         }
-        public double getFeelsLike() {
-            return feelsLike;
+        public int getSunset() {
+            return sunset;
         }
-        public int getPressure() {
-            return pressure;
+        public int getMoonrise() {
+            return moonrise;
         }
-        public int getHumidity() {
-            return humidity;
+        public int getMoonset() {
+            return moonset;
         }
         public double getMoonPhase() {
             return moonPhase;
@@ -251,7 +253,7 @@ public class ForecastModel {
         public int getClouds() {
             return clouds;
         }
-        public int getPop() {
+        public double getPop() {
             return pop;
         }
         public double getUvi() {
@@ -276,7 +278,7 @@ public class ForecastModel {
 
 
 
-    class Temp{
+    public class Temp{
         @SerializedName("day")
         private double dayTemp;
         @SerializedName("min")
@@ -322,7 +324,7 @@ public class ForecastModel {
 
 
 
-    class FeelsLike{
+    public class FeelsLike{
         @SerializedName("day")
         private double dayTempFeels;
         @SerializedName("night")
@@ -348,7 +350,7 @@ public class ForecastModel {
 
 
 
-     class Weather{
+    public class Weather{
         @SerializedName("id")
         private int id;
         @SerializedName("main")
@@ -358,7 +360,7 @@ public class ForecastModel {
         @SerializedName("icon")
         private String iconId;
 
-        
+
         public int getId() {
             return id;
         }

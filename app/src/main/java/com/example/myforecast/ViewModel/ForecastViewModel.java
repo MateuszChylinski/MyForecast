@@ -21,8 +21,8 @@ public class ForecastViewModel extends AndroidViewModel {
         mForecastRepository = ForecastRepository.getInstance();
     }
 
-    public MutableLiveData<List<ForecastModel>> getRecentForecast(double latitude, double longitude){
-        mForecastTest = mForecastRepository.getRecentForecast(latitude, longitude, BuildConfig.API_KEY, "metric");
+    public MutableLiveData<List<ForecastModel>> getForecastData(double latitude, double longitude){
+        mForecastTest = mForecastRepository.getApiData(latitude, longitude, BuildConfig.API_KEY, "metric");
         return mForecastTest;
     }
 }
