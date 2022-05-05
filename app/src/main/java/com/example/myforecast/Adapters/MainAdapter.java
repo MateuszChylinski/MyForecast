@@ -16,6 +16,7 @@ import androidx.viewpager2.adapter.FragmentViewHolder;
 import com.example.myforecast.Fragments.DailyForecast;
 import com.example.myforecast.Fragments.HourlyForecast;
 import com.example.myforecast.Fragments.TestFragment;
+import com.example.myforecast.MainActivity;
 import com.example.myforecast.R;
 
 import java.text.SimpleDateFormat;
@@ -24,9 +25,12 @@ import java.util.Date;
 import java.util.List;
 
 public class ForecastAdapter extends FragmentStateAdapter {
+    private double mLatitude, mLongitude;
 
-    public ForecastAdapter(@NonNull FragmentActivity fragmentActivity) {
+    public ForecastAdapter(@NonNull FragmentActivity fragmentActivity, double latitude, double longitude) {
         super(fragmentActivity);
+        this.mLatitude = latitude;
+        this.mLongitude = longitude;
     }
 
     @Override
@@ -43,16 +47,10 @@ public class ForecastAdapter extends FragmentStateAdapter {
             case 1:
                 return new DailyForecast();
             default:
-                return new TestFragment();
+                return new TestFragment(mLatitude, mLongitude);
         }
     }
 }
-
-    //    private String converseDate(long unixDate){
-//        Date date = new Date(unixDate*1000L);
-//        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("EEE, HH:mm");
-//        return format.format(date);
-//    }
 
 //    public class ForecastViewHolder extends RecyclerView.ViewHolder {
 //        TextView datetime, temperature, pressure, humidity;
