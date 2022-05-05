@@ -1,33 +1,18 @@
-package com.example.myforecast.Adapter;
-
-import android.annotation.SuppressLint;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+package com.example.myforecast.Adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.ListFragment;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.adapter.FragmentViewHolder;
 
 import com.example.myforecast.Fragments.DailyForecast;
 import com.example.myforecast.Fragments.HourlyForecast;
 import com.example.myforecast.Fragments.TestFragment;
-import com.example.myforecast.MainActivity;
-import com.example.myforecast.R;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-public class ForecastAdapter extends FragmentStateAdapter {
+public class MainAdapter extends FragmentStateAdapter {
     private double mLatitude, mLongitude;
 
-    public ForecastAdapter(@NonNull FragmentActivity fragmentActivity, double latitude, double longitude) {
+    public MainAdapter(@NonNull FragmentActivity fragmentActivity, double latitude, double longitude) {
         super(fragmentActivity);
         this.mLatitude = latitude;
         this.mLongitude = longitude;

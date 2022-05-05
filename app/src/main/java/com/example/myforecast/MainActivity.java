@@ -3,45 +3,30 @@ package com.example.myforecast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.Fragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.myforecast.Adapter.ForecastAdapter;
-import com.example.myforecast.Fragments.DailyForecast;
-import com.example.myforecast.Fragments.HourlyForecast;
-import com.example.myforecast.Fragments.TestFragment;
-import com.example.myforecast.Model.ForecastModel;
-import com.example.myforecast.ViewModel.ForecastViewModel;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.example.myforecast.Adapters.MainAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LocationListener {
 
     private static final String TAG = "MainActivity";
     private int request_code = 1;
     private double mLatitude, mLongitude;
-
-    List<ForecastModel> mForecastList = new ArrayList<ForecastModel>();
-    ForecastAdapter mAdapter;
-    RecyclerView mRecyclerView;
-    ForecastViewModel mViewModel;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,29 +34,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle("Three hour forecast");
 
-        setupData(0, 0);
+        getUserLocation();
     }
 
-    private void setupData(double latitude, double longitude) {
-
-
-        ViewPager2 pager = findViewById(R.id.pager_test);
-        mAdapter = new ForecastAdapter(this);
-        pager.setAdapter(mAdapter);
-
-
-        TabLayout tabLayout = findViewById(R.id.tab_test);
-        new TabLayoutMediator(
-                tabLayout,
-                pager,
-                new TabLayoutMediator.TabConfigurationStrategy() {
-                    @Override
-                    public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                        tab.setText("test");
-                    }
-                }
-        ).attach();
-    }
 
     private void checkPermissions() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -92,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
                     })
                     .create().show();
         } else {
-
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, request_code);
             getUserLocation();
         }
@@ -112,37 +76,44 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void getUserLocation() {
-        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+//        TODO - check if location is enabled
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             checkPermissions();
         }
-        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-                    mLatitude = location.getLatitude();
-                    mLongitude = location.getLongitude();
-                    Log.i(TAG, "onSuccess: " + mLatitude + " " + mLongitude);
-                    setupData(mLatitude, mLongitude);
-                }
-            }
-        });
+        Criteria criteria = new Criteria();
+        String provider = locationManager.getBestProvider(criteria, false);
+        Location location = locationManager.getLastKnownLocation(provider);
+
+        if (location != null) {
+            onLocationChanged(location);
+        }
     }
 
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        Log.i(TAG, "onLocationChanged: " + location.getLongitude() + " " + location.getLatitude());
 
+        mLatitude = location.getLatitude();
+        mLongitude = location.getLongitude();
 
+        test(mLatitude, mLongitude);
+    }
+
+    private void test(double latitude, double longitude) {
+        ViewPager2 pager = findViewById(R.id.pager_test);
+        pager.setAdapter(new MainAdapter(this, latitude, longitude));
+
+        TabLayout tabLayout = findViewById(R.id.tab_test);
+        new TabLayoutMediator(
+                tabLayout,
+                pager,
+                new TabLayoutMediator.TabConfigurationStrategy() {
+                    @Override
+                    public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                        tab.setText("test");
+                    }
+                }
+        ).attach();
+    }
 }
-//    private void setupData(double latitude, double longitude) {
-//        ViewPager2 pager = findViewById(R.id.pager_test);
-//        ForecastAdapter adapter = new ForecastAdapter(this);
-//
-//        mViewModel = ViewModelProviders.of(this).get(ForecastViewModel.class);
-//        mViewModel.getRecentForecast(latitude, longitude).observe(this, new Observer<List<ForecastModel>>() {
-//            @Override
-//            public void onChanged(List<ForecastModel> models) {
-//                mForecastList.addAll(models);
-//                pager.setAdapter(adapter);
-//            }
-//        });
-//    }
-//}
