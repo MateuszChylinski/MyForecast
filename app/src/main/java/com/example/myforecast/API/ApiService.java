@@ -7,7 +7,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface ApiService {
-//    TODO - ask user which units he wants (metric,imperial)
     @GET("/data/2.5/onecall")
     Call<ForecastModel> getRecentForecast(
             @Query("lat") double lat,

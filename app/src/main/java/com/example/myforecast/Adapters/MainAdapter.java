@@ -7,7 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.myforecast.Fragments.DailyForecast;
 import com.example.myforecast.Fragments.HourlyForecast;
-import com.example.myforecast.Fragments.TestFragment;
+import com.example.myforecast.Fragments.CurrentForecast;
 
 public class MainAdapter extends FragmentStateAdapter {
     private double mLatitude, mLongitude;
@@ -27,28 +27,13 @@ public class MainAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         switch (position) {
-            case 0:
-                return new HourlyForecast();
             case 1:
-                return new DailyForecast();
+                return new HourlyForecast(mLatitude, mLongitude);
+            case 2:
+                return new DailyForecast(mLatitude, mLongitude);
+//                Return current forecast, as a default.
             default:
-                return new TestFragment(mLatitude, mLongitude);
+                return new CurrentForecast(mLatitude, mLongitude);
         }
     }
 }
-
-//    public class ForecastViewHolder extends RecyclerView.ViewHolder {
-//        TextView datetime, temperature, pressure, humidity;
-//        ImageView forecastIcon;
-//
-//        public ForecastViewHolder(@NonNull View itemView) {
-//            super(itemView);
-//
-//            this.datetime = (TextView) itemView.findViewById(R.id.five_hours_datetime);
-//            this.temperature = (TextView) itemView.findViewById(R.id.five_hours_temperature);
-//            this.pressure = (TextView) itemView.findViewById(R.id.five_hours_pressure);
-//            this.humidity = (TextView) itemView.findViewById(R.id.five_hours_humidity);
-//            this.forecastIcon = (ImageView) itemView.findViewById(R.id.five_hours_icon);
-//        }
-//    }
-

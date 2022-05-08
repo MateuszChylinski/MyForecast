@@ -12,43 +12,41 @@
         android:layout_marginTop="18dp"
         android:orientation="horizontal">
 
-
-        <ImageView
-            android:id="@+id/hourly_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="5dp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/hourly_datetime"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="3dp"
-                android:text="DateTime "
-                android:textSize="25sp" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/hourly_main_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="3dp"
-                android:text="Main description"
-                android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/current_datetime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:paddingBottom="3dp"
+                    android:text="DateTime "
+                    android:textSize="25sp"
+                    android:layout_marginStart="10dp"/>
+
+                <ImageView
+                    android:id="@+id/current_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="6dp"/>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -57,66 +55,92 @@
                         android:id="@+id/current_sunrise_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@mipmap/ic_launcher_round" />
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="15dp"/>
 
                     <TextView
                         android:id="@+id/current_sunrise"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="10dp"
-                        android:text="00:00 XX" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="31dp"
+                        android:layout_toEndOf="@+id/current_sunrise_icon"
+                        android:text="00:00 XX"
+                        android:textSize="16sp" />
 
                     <ImageView
                         android:id="@+id/current_sunset_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@mipmap/ic_launcher_round" />
+                        android:layout_below="@+id/current_sunrise_icon"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="15dp" />
 
                     <TextView
                         android:id="@+id/current_sunset"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="10dp"
-                        android:text="00:00 XX" />
-                </LinearLayout>
+                        android:layout_below="@id/current_sunrise"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="49dp"
+                        android:layout_toEndOf="@+id/current_sunset_icon"
+                        android:text="00:00 XX"
+                        android:textSize="16sp" />
+                </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/hourly_temperature"
+                    android:id="@+id/current_main_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Main description"
+                    android:layout_marginTop="25dp"
+                    android:textSize="18sp"
+                    android:layout_marginStart="10dp"/>
+
+                <TextView
+                    android:id="@+id/current_temperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Temperature"
-                    android:textSize="16sp" />
+                    android:textSize="18sp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"/>
 
                 <TextView
-                    android:id="@+id/hourly_pressure"
+                    android:id="@+id/current_pressure"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="5dp"
                     android:text="Pressure"
-                    android:textSize="16sp" />
+                    android:textSize="18sp"
+                    android:layout_marginStart="10dp"/>
 
                 <TextView
-                    android:id="@+id/hourly_humidity"
+                    android:id="@+id/current_humidity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="5dp"
                     android:text="Humidity"
-                    android:textSize="16sp" />
+                    android:textSize="18sp"
+                    android:layout_marginStart="10dp"/>
 
                 <TextView
-                    android:id="@+id/hourly_wind_speed"
+                    android:id="@+id/current_wind_speed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="5dp"
                     android:text="Wind km/h"
-                    android:textSize="16sp" />
+                    android:textSize="18sp"
+                    android:layout_marginStart="10dp"/>
+
+                <TextView
+                    android:id="@+id/current_full_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Full desc"
+                    android:textSize="18sp"
+                    android:layout_marginStart="10dp"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

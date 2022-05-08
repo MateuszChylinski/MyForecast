@@ -211,6 +211,10 @@ public class ForecastModel {
         private int sunset;
         @SerializedName("moonrise")
         private int moonrise;
+        @SerializedName("pressure")
+        private int pressure;
+        @SerializedName("humidity")
+        private int humidity;
         @SerializedName("moonset")
         private int moonset;
         @SerializedName("moon_phase")
@@ -231,6 +235,10 @@ public class ForecastModel {
         private double windGust;
         @SerializedName("weather")
         private List<Weather> weatherList = null;
+        @SerializedName("temp")
+        private Temp temp;
+        @SerializedName("feels_like")
+        private FeelsLike feelsLike;
 
         public int getDateTime() {
             return dateTime;
@@ -271,6 +279,21 @@ public class ForecastModel {
         public double getWindGust() {
             return windGust;
         }
+
+        public FeelsLike getFeelsLike() {
+            return feelsLike;
+        }
+
+        public Temp getTemp() {
+            return temp;
+        }
+
+        public int getPressure() {
+            return pressure;
+        }
+        public int getHumidity() {
+            return humidity;
+        }
         public List<Weather> getWeatherList() {
             return weatherList;
         }
@@ -291,10 +314,6 @@ public class ForecastModel {
         private double eveningTemp;
         @SerializedName("morn")
         private double morningTemp;
-        @SerializedName("pressure")
-        private int pressure;
-        @SerializedName("humidity")
-        private int humidity;
 
         public double getDayTemp() {
             return dayTemp;
@@ -314,12 +333,7 @@ public class ForecastModel {
         public double getMorningTemp() {
             return morningTemp;
         }
-        public int getPressure() {
-            return pressure;
-        }
-        public int getHumidity() {
-            return humidity;
-        }
+
     }
 
 

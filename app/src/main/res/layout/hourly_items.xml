@@ -3,8 +3,8 @@
     android:id="@+id/list_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,27 +13,44 @@
         android:orientation="horizontal">
 
 
-        <ImageView
-            android:id="@+id/hourly_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_gravity="center"
-            android:background="@mipmap/ic_launcher_round"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:orientation="vertical">
 
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/hourly_datetime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="3dp"
+                    android:text="DateTime "
+                    android:textSize="25sp"
+                    android:layout_centerVertical="true"/>
+
+                <ImageView
+                    android:id="@+id/hourly_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="35dp"/>
+
+
+            </RelativeLayout>
+
             <TextView
-                android:id="@+id/hourly_datetime"
+                android:id="@+id/hourly_main_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="DateTime "
+                android:paddingBottom="3dp"
+                android:text="Main description"
                 android:textSize="20sp"
-                android:paddingBottom="3dp"/>
+                android:layout_marginTop="10dp"/>
 
             <TextView
                 android:id="@+id/hourly_temperature"
@@ -65,6 +82,67 @@
                 android:layout_marginTop="4dp"
                 android:text="Wind km/h"
                 android:textSize="16sp" />
+
+
+
+
+
         </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/expanded_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/hourly_feels_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="4dp"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/hourly_clouds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="4dp"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/hourly_visibility"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="4dp"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/hourly_wind_gust"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="4dp"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/hourly_pop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="4dp"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/hourly_full_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="25dp"
+            android:textSize="16sp" />
     </LinearLayout>
 </LinearLayout>
+
