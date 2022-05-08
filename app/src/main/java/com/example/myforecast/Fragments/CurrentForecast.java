@@ -44,7 +44,8 @@ public class TestFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         ForecastViewModel viewModel = ViewModelProviders.of(this).get(ForecastViewModel.class);
-        viewModel.getForecastData(mLatitude, mLongitude).observe(getViewLifecycleOwner(), new Observer<List<ForecastModel>>() {
+
+        viewModel.getForecastData(	40.730610, -73.935242).observe(getViewLifecycleOwner(), new Observer<List<ForecastModel>>() {
             @Override
             public void onChanged(List<ForecastModel> forecastModels) {
                 mTest.addAll(forecastModels);
