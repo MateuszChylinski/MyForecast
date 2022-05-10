@@ -13,4 +13,18 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+<!--    TODO what are parent in here?-->
+    <style name="expandedListViews">
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="recyclerViews">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+
+
 </resources>

@@ -12,4 +12,10 @@ public class ConverseDate {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("EEE, HH:mm");
         return format.format(date);
     }
+
+    public String converseSunriseSunset(long unixDate) {
+        Date date = new Date(unixDate * 1000L);
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        return format.format(date);
+    }
 }

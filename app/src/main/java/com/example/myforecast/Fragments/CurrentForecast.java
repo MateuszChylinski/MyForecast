@@ -1,10 +1,10 @@
 package com.example.myforecast.Fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
@@ -66,28 +66,33 @@ public class CurrentForecast extends Fragment {
         mForecastIV = fragmentView.findViewById(R.id.current_icon);
 
         getForecastData();
-
-
         return fragmentView;
     }
 
     private void getForecastData() {
         mViewModel = ViewModelProviders.of(this).get(ForecastViewModel.class);
         mViewModel.getForecastData(40.730610, -73.935242).observe(getViewLifecycleOwner(), new Observer<List<ForecastModel>>() {
+            @SuppressLint("StringFormatMatches")
             @Override
             public void onChanged(List<ForecastModel> list) {
 
 
 //              Setup TextView's
                 mDateTime.setText(mConverseDate.converseDate(list.get(0).getCurrent().getDateTime()));
-                mMainDesc.setText("Description: "+list.get(0).getHourlyForecast().get(0).getWeatherList().get(0).getMain());
-                mSunrise.setText(mConverseDate.converseDate(list.get(0).getCurrent().getSunrise()));
-                mSunset.setText(mConverseDate.converseDate(list.get(0).getCurrent().getSunset()));
-                mTemperature.setText(String.format("Temperature: %.0f\u2103", list.get(0).getCurrent().getTemperature()));
-                mPressure.setText(String.format("Pressure: %d hPa ", list.get(0).getCurrent().getPressure()));
-                mHumidity.setText(String.format("Humidity: %d%%", list.get(0).getCurrent().getHumidity()));
-                mWindSpeed.setText(String.format("Wind speed: %.2f km/h", list.get(0).getCurrent().getWindSpeed()));
-                mFullDescription.setText("Full description: "+StringUtils.capitalize(list.get(0).getCurrent().getWeatherList().get(0).getDescription()));
+                mMainDesc.setText(getResources().getString(R.string.mainDesc,
+                        StringUtils.capitalize(list.get(0).getHourlyForecast().get(0).getWeatherList().get(0).getMain())));
+                mSunrise.setText(mConverseDate.converseSunriseSunset(list.get(0).getCurrent().getSunrise()));
+                mSunset.setText(mConverseDate.converseSunriseSunset(list.get(0).getCurrent().getSunset()));
+                mTemperature.setText(getResources().getString(R.string.temperature,
+                        list.get(0).getCurrent().getTemperature()));
+                mPressure.setText(getResources().getString(R.string.pressure,
+                        list.get(0).getCurrent().getPressure()));
+                mHumidity.setText(getResources().getString(R.string.humidity,
+                        list.get(0).getCurrent().getHumidity()));
+                mWindSpeed.setText(getResources().getString(R.string.windSpeed,
+                        list.get(0).getCurrent().getWindSpeed()));
+                mFullDescription.setText(getResources().getString(R.string.fullDesc,
+                        StringUtils.capitalize(list.get(0).getCurrent().getWeatherList().get(0).getDescription())));
 
 //              Setup ImageView's
                 mForecastIcon.loadIcon("01d", mSunriseIV);

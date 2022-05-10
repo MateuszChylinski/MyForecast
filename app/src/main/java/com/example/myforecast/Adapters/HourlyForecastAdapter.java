@@ -1,10 +1,7 @@
 package com.example.myforecast.Adapters;
 
-import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
-import android.transition.TransitionManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +18,7 @@ import com.example.myforecast.Model.ForecastModel;
 
 import com.example.myforecast.R;
 
-import org.apache.commons.lang3.StringUtils;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.ViewHolder> {
@@ -48,6 +41,7 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
         return new ViewHolder(view);
     }
 
+    @SuppressLint("StringFormatInvalid")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
@@ -67,28 +61,34 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
                 notifyItemChanged(position);
             }
         });
+        holder.mDateTime.setText(mConverseDate.converseDate(mData.get(0).getHourlyForecast().get(position).getDateTime()));
+        holder.mMainDescription.setText(holder.itemView.getResources().getString(R.string.mainDesc,
+                mData.get(0).getHourlyForecast().get(position).getWeatherList().get(0).getMain()));
+        holder.mTemperature.setText(holder.itemView.getResources().getString(R.string.temperature,
+                mData.get(0).getHourlyForecast().get(position).getTemperature()));
+        holder.mPressure.setText(holder.itemView.getResources().getString(R.string.pressure,
+                mData.get(0).getHourlyForecast().get(position).getPressure()));
+        holder.mHumidity.setText(holder.itemView.getResources().getString(R.string.humidity,
+                mData.get(0).getHourlyForecast().get(position).getHumidity()));
+        holder.mWindSpeed.setText(holder.itemView.getResources().getString(R.string.windSpeed,
+                mData.get(0).getHourlyForecast().get(position).getWindSpeed()));
+        holder.mFeelsLike.setText(holder.itemView.getResources().getString(R.string.temperatureFeelsLike,
+                mData.get(0).getHourlyForecast().get(position).getFeelsLike()));
+        holder.mCloudiness.setText(holder.itemView.getResources().getString(R.string.cloudiness,
+                mData.get(0).getHourlyForecast().get(position).getClouds()));
+        holder.mVisibility.setText(holder.itemView.getResources().getString(R.string.visibility,
+                mData.get(0).getHourlyForecast().get(position).getVisibility()));
+        holder.mWindGust.setText(holder.itemView.getResources().getString(R.string.windGust,
+                mData.get(0).getHourlyForecast().get(position).getWindGust()));
+        holder.mPrecipitation.setText(holder.itemView.getResources().getString(R.string.pop,
+                mData.get(0).getHourlyForecast().get(position).getPop()));
+        holder.mFullDescription.setText(holder.itemView.getResources().getString(R.string.fullDesc,
+                mData.get(0).getHourlyForecast().get(position).getWeatherList().get(0).getDescription()));
 
-
-//      "Basic" layout look
         mIcon.loadIcon(
                 mData.get(0).getHourlyForecast().get(position).getWeatherList().get(0).getIconId(),
                 holder.mForecastIcon
         );
-        holder.mDateTime.setText(mConverseDate.converseDate(mData.get(0).getHourlyForecast().get(position).getDateTime()));
-        holder.mMainDescription.setText(mData.get(0).getHourlyForecast().get(position).getWeatherList().get(0).getMain());
-        holder.mTemperature.setText(String.format("Temperature: %.0f\u2103", mData.get(0).getHourlyForecast().get(position).getTemperature()));
-        holder.mPressure.setText(String.format("Pressure: %d hPa ", mData.get(0).getHourlyForecast().get(position).getPressure()));
-        holder.mHumidity.setText(String.format("Humidity: %d%%", mData.get(0).getHourlyForecast().get(position).getHumidity()));
-        holder.mWindSpeed.setText(String.format("Wind speed: %.2f km/h", mData.get(0).getHourlyForecast().get(position).getWindSpeed()));
-
-//      After expand
-        holder.mFeelsLike.setText(String.format("Feels like: %.0f\u2103", mData.get(0).getHourlyForecast().get(position).getFeelsLike()));
-        holder.mCloudiness.setText(String.format("Cloudiness: %d%%", mData.get(0).getHourlyForecast().get(position).getClouds()));
-        holder.mVisibility.setText(String.format("Visibility: %d meters", mData.get(0).getHourlyForecast().get(position).getVisibility()));
-        holder.mWindGust.setText(String.format("Wind gust: %.2f m/s", mData.get(0).getHourlyForecast().get(position).getWindGust()));
-        holder.mPrecipitation.setText(String.format("Precipitation: %.0f", mData.get(0).getHourlyForecast().get(position).getPop()));
-        holder.mFullDescription.setText(StringUtils.capitalize(mData.get(0).getHourlyForecast().get(position).getWeatherList().get(0).getDescription()));
-
     }
 
 
@@ -98,13 +98,12 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
     }
 
 
-    //TODO add string resources, make shapes if needed
     //TODO trigger location
     //TODO bind views (butter knife?)
     //TODO convert precipitation
-    //TODO check all of the names in .xml
     //TODO add placeholders for views
     //TODO add polish translation
+    //TODO api providing wrong sunset time?
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

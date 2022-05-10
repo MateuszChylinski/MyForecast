@@ -39,6 +39,7 @@ public class DailyForecastAdapter extends RecyclerView.Adapter<DailyForecastAdap
         return new ViewHolder(view);
     }
 
+    @SuppressLint("StringFormatInvalid")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
@@ -60,45 +61,55 @@ public class DailyForecastAdapter extends RecyclerView.Adapter<DailyForecastAdap
         });
 
 
+        holder.mSunrise.setText(mConverseDate.converseSunriseSunset(mData.get(0).getDailyForecast().get(position).getSunrise()));
+        holder.mSunset.setText(mConverseDate.converseSunriseSunset(mData.get(0).getDailyForecast().get(position).getSunset()));
+        holder.mTempMin.setText(holder.itemView.getResources().getString(R.string.tempMin,
+                mData.get(0).getDailyForecast().get(position).getTemp().getMinimalTemp()));
+        holder.mTempMax.setText(holder.itemView.getResources().getString(R.string.tempMax,
+                mData.get(0).getDailyForecast().get(position).getTemp().getMaxTemp()));
+        holder.mWeatherMainDesc.setText(holder.itemView.getResources().getString(R.string.mainDesc,
+                StringUtils.capitalize(mData.get(0).getDailyForecast().get(position).getWeatherList().get(0).getMain())));
         holder.mDateTime.setText(mConverseDate.converseDate(mData.get(0).getDailyForecast().get(position).getDateTime()));
-        holder.mSunrise.setText(mConverseDate.converseDate(mData.get(0).getDailyForecast().get(position).getSunrise()));
-        holder.mSunset.setText(mConverseDate.converseDate(mData.get(0).getDailyForecast().get(position).getSunset()));
-        holder.mHumidity.setText(String.format("Humidity: %d%%", mData.get(0).getDailyForecast().get(position).getHumidity()));
-        holder.mPressure.setText(String.format("Pressure: %d hPa ", mData.get(0).getDailyForecast().get(position).getPressure()));
-        holder.mWindSpeed.setText(String.format("Wind speed: %.2f km/h", mData.get(0).getDailyForecast().get(position).getWindSpeed()));
-        holder.mWindGust.setText(String.format("Wind gust: %.2f m/s", mData.get(0).getDailyForecast().get(position).getWindGust()));
-        holder.mCloudiness.setText(String.format("Cloudiness: %d%%", mData.get(0).getDailyForecast().get(position).getClouds()));
-        holder.mTempMin.setText(String.format("Minimal temperature:  %.0f\u2103", mData.get(0).getDailyForecast().get(position).getTemp().getMinimalTemp()));
-        holder.mTempMax.setText(String.format("Maximal temperature:  %.0f\u2103", mData.get(0).getDailyForecast().get(position).getTemp().getMaxTemp()));
+        holder.mWeatherFullDesc.setText(holder.itemView.getResources().getString(R.string.mainDesc,
+                mData.get(0).getDailyForecast().get(position).getWeatherList().get(0).getDescription()));
+        holder.mTempMorning.setText(holder.itemView.getResources().getString(R.string.tempMorning,
+                mData.get(0).getDailyForecast().get(position).getTemp().getMorningTemp()));
+        holder.mTempDay.setText(holder.itemView.getResources().getString(R.string.tempDay,
+                mData.get(0).getDailyForecast().get(position).getTemp().getDayTemp()));
+        holder.mTempEvening.setText(holder.itemView.getResources().getString(R.string.tempEvening,
+                mData.get(0).getDailyForecast().get(position).getTemp().getEveningTemp()));
+        holder.mTempNight.setText(holder.itemView.getResources().getString(R.string.tempNight,
+                mData.get(0).getDailyForecast().get(position).getTemp().getNightTemp()));
+        holder.mPressure.setText(holder.itemView.getResources().getString(R.string.pressure,
+                mData.get(0).getDailyForecast().get(position).getPressure()));
+        holder.mHumidity.setText(holder.itemView.getResources().getString(R.string.humidity,
+                mData.get(0).getDailyForecast().get(position).getHumidity()));
+        holder.mWindSpeed.setText(holder.itemView.getResources().getString(R.string.windSpeed,
+                mData.get(0).getDailyForecast().get(position).getWindSpeed()));
+        holder.mFeelsMorning.setText(holder.itemView.getResources().getString(R.string.feelsLikeMorning,
+                mData.get(0).getDailyForecast().get(position).getTemp().getMorningTemp()));
+        holder.mFeelsDay.setText(holder.itemView.getResources().getString(R.string.feelsLikeDay,
+                mData.get(0).getDailyForecast().get(position).getTemp().getDayTemp()));
+        holder.mFeelsEvening.setText(holder.itemView.getResources().getString(R.string.feelsLikeEvening,
+                mData.get(0).getDailyForecast().get(position).getTemp().getEveningTemp()));
+        holder.mFeelsNight.setText(holder.itemView.getResources().getString(R.string.feelsLikeNight,
+                mData.get(0).getDailyForecast().get(position).getTemp().getNightTemp()));
+        holder.mCloudiness.setText(holder.itemView.getResources().getString(R.string.cloudiness,
+                mData.get(0).getDailyForecast().get(position).getClouds()));
+        holder.mWindGust.setText(holder.itemView.getResources().getString(R.string.windGust,
+                mData.get(0).getDailyForecast().get(position).getWindGust()));
+        holder.mPop.setText(holder.itemView.getResources().getString(R.string.pop,
+                mData.get(0).getDailyForecast().get(position).getPop()));
+        holder.mWeatherFullDesc.setText(holder.itemView.getResources().getString(R.string.fullDesc,
+                StringUtils.capitalize(mData.get(0).getDailyForecast().get(position).getWeatherList().get(0).getDescription())));
 
-//      After expand
-        holder.mTempMorning.setText(String.format("Morning temperature: %.0f\u2103", mData.get(0).getDailyForecast().get(position).getTemp().getMorningTemp()));
-        holder.mTempDay.setText(String.format("Day temperature: %.0f\u2103", mData.get(0).getDailyForecast().get(position).getTemp().getDayTemp()));
-        holder.mTempEvening.setText(String.format("Evening temperature:: %.0f\u2103", mData.get(0).getDailyForecast().get(position).getTemp().getEveningTemp()));
-        holder.mTempNight.setText(String.format("Night temperature: %.0f\u2103", mData.get(0).getDailyForecast().get(position).getTemp().getNightTemp()));
-
-        holder.mFeelsMorning.setText(String.format("Morning feels like: %.0f\u2103", mData.get(0).getDailyForecast().get(position).getFeelsLike().getMorningTempFeels()));
-        holder.mFeelsDay.setText(String.format("Day feels like:: %.0f\u2103", mData.get(0).getDailyForecast().get(position).getFeelsLike().getDayTempFeels()));
-        holder.mFeelsEvening.setText(String.format("Evening feels like: %.0f\u2103", mData.get(0).getDailyForecast().get(position).getFeelsLike().getEveningTempFeels()));
-        holder.mFeelsNight.setText(String.format("Night feels like: %.0f\u2103", mData.get(0).getDailyForecast().get(position).getFeelsLike().getNightTempFeels()));
-
-        holder.mWeatherMainDesc.setText("Main description: "+ mData.get(0).getDailyForecast().get(position).getWeatherList().get(0).getMain());
-        holder.mWeatherFullDesc.setText("Full description: "+ mData.get(0).getDailyForecast().get(position).getWeatherList().get(0).getDescription());
-        holder.mPop.setText(String.format("Probability of Precipitation: %.0f", mData.get(0).getDailyForecast().get(position).getPop()));
+        mIcon.loadIcon("01d", holder.mSunriseIcon);
+        mIcon.loadIcon("01n", holder.mSunsetIcon);
 
         mIcon.loadIcon(
-                mData.get(0).getHourlyForecast().get(position).getWeatherList().get(0).getIconId(),
+                mData.get(0).getDailyForecast().get(position).getWeatherList().get(0).getIconId(),
                 holder.mForecastIcon
         );
-        mIcon.loadIcon(
-                "01d",
-                holder.mSunriseIcon
-        );
-        mIcon.loadIcon(
-                "01n",
-                holder.mSunsetIcon
-        );
-
     }
 
     @Override
@@ -106,7 +117,7 @@ public class DailyForecastAdapter extends RecyclerView.Adapter<DailyForecastAdap
         return mData.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mDateTime, mSunrise, mSunset, mWeatherFullDesc, mWeatherMainDesc, mPressure, mHumidity, mWindSpeed, mTempMorning,
                 mTempDay, mTempEvening, mTempNight, mTempMin, mTempMax, mFeelsMorning, mFeelsDay, mFeelsEvening, mFeelsNight, mWindGust, mCloudiness,

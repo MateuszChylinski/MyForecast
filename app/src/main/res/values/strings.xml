@@ -1,4 +1,24 @@
 <resources>
     <string name="app_name">MyForecast</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="humidity">Humidity: %d%%</string>
+    <string name="pressure">Pressure: %d hPa</string>
+    <string name="windSpeed">Wind speed: %.2f m/s</string>
+    <string name="windGust">Wing gust: %.2f m/s</string>
+    <string name="cloudiness">Cloudiness: %d%%</string>
+    <string name="temperature">Temperature:  %.0f\u2103</string>
+    <string name="temperatureFeelsLike">Temperature: %.0f\u2103</string>
+    <string name="visibility">Visibility: %d meters</string>
+    <string name="tempMax">Maximal temperature: %.0f\u2103</string>
+    <string name="tempMin">Minimal temperature: %.0f\u2103</string>
+    <string name="tempMorning">Morning temperature: %.0f\u2103</string>
+    <string name="tempDay">Day temperature: %.0f\u2103</string>
+    <string name="tempEvening">Evening temperature: %.0f\u2103</string>
+    <string name="tempNight">Night temperature: %.0f\u2103</string>
+    <string name="feelsLikeMorning">Feels like morning temperature: %.0f\u2103</string>
+    <string name="feelsLikeDay">Feels like day temperature: %.0f\u2103</string>
+    <string name="feelsLikeEvening">Feels like evening temperature: %.0f\u2103</string>
+    <string name="feelsLikeNight">Feels like night temperature: %.0f\u2103</string>
+    <string name="mainDesc">Main description: %s</string>
+    <string name="fullDesc">Full description: %s</string>
+    <string name="pop">Probability of precipitation: %.0f%%</string>
 </resources>

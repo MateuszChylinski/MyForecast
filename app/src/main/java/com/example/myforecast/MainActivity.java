@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         askForPermissions();
         checkLocation();
     }
+
     private void checkLocation(){
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
