@@ -18,6 +18,8 @@ import com.example.myforecast.Model.ForecastModel;
 
 import com.example.myforecast.R;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,7 +85,7 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
         holder.mPrecipitation.setText(holder.itemView.getResources().getString(R.string.pop,
                 mData.get(0).getHourlyForecast().get(position).getPop()));
         holder.mFullDescription.setText(holder.itemView.getResources().getString(R.string.fullDesc,
-                mData.get(0).getHourlyForecast().get(position).getWeatherList().get(0).getDescription()));
+                StringUtils.capitalize(mData.get(0).getHourlyForecast().get(position).getWeatherList().get(0).getDescription())));
 
         mIcon.loadIcon(
                 mData.get(0).getHourlyForecast().get(position).getWeatherList().get(0).getIconId(),
