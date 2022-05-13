@@ -128,3 +128,10 @@ public class MainActivity extends AppCompatActivity {
         ).attach();
     }
 }
+
+//TODO trigger location
+//TODO bind views (butter knife?)
+//TODO convert precipitation
+//TODO add placeholders for views
+//TODO add polish translation
+//TODO api providing wrong sunset time?

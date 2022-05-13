@@ -18,6 +18,7 @@ import com.example.myforecast.Model.ForecastModel;
 import com.example.myforecast.Picasso.ForecastIcon;
 import com.example.myforecast.R;
 import com.example.myforecast.ViewModel.ForecastViewModel;
+import com.example.myforecast.databinding.FragmentCurrentForecastBinding;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -26,7 +27,7 @@ import java.util.List;
 
 public class CurrentForecast extends Fragment {
 
-    public static final String TAG = "TestFragment";
+    private FragmentCurrentForecastBinding mCurrentBinding;
     private ForecastViewModel mViewModel;
 
     private ConverseDate mConverseDate;
@@ -34,9 +35,6 @@ public class CurrentForecast extends Fragment {
 
     private double mLatitude, mLongitude;
     private List<ForecastModel> mForecastData = new ArrayList<>();
-
-    private TextView mDateTime, mMainDesc, mSunrise, mSunset, mTemperature, mPressure, mHumidity, mWindSpeed, mFullDescription;
-    private ImageView mSunriseIV, mSunsetIV, mForecastIV;
 
     public CurrentForecast(double mLatitude, double mLongitude) {
         this.mLatitude = mLatitude;
@@ -46,27 +44,14 @@ public class CurrentForecast extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View fragmentView = inflater.inflate(R.layout.fragment_current_forecast, container, false);
+
+        mCurrentBinding = FragmentCurrentForecastBinding.inflate(getLayoutInflater(), container, false);
 
         mConverseDate = new ConverseDate();
         mForecastIcon = new ForecastIcon();
 
-        mDateTime = fragmentView.findViewById(R.id.current_datetime);
-        mMainDesc = fragmentView.findViewById(R.id.current_main_description);
-        mSunrise = fragmentView.findViewById(R.id.current_sunrise);
-        mSunset = fragmentView.findViewById(R.id.current_sunset);
-        mTemperature = fragmentView.findViewById(R.id.current_temperature);
-        mPressure = fragmentView.findViewById(R.id.current_pressure);
-        mHumidity = fragmentView.findViewById(R.id.current_humidity);
-        mWindSpeed = fragmentView.findViewById(R.id.current_wind_speed);
-        mFullDescription = fragmentView.findViewById(R.id.current_full_description);
-
-        mSunriseIV = fragmentView.findViewById(R.id.current_sunrise_icon);
-        mSunsetIV = fragmentView.findViewById(R.id.current_sunset_icon);
-        mForecastIV = fragmentView.findViewById(R.id.current_icon);
-
         getForecastData();
-        return fragmentView;
+        return mCurrentBinding.getRoot();
     }
 
     private void getForecastData() {
@@ -76,30 +61,30 @@ public class CurrentForecast extends Fragment {
             @Override
             public void onChanged(List<ForecastModel> list) {
 
-
 //              Setup TextView's
-                mDateTime.setText(mConverseDate.converseDate(list.get(0).getCurrent().getDateTime()));
-                mMainDesc.setText(getResources().getString(R.string.mainDesc,
-                        StringUtils.capitalize(list.get(0).getHourlyForecast().get(0).getWeatherList().get(0).getMain())));
-                mSunrise.setText(mConverseDate.converseSunriseSunset(list.get(0).getCurrent().getSunrise()));
-                mSunset.setText(mConverseDate.converseSunriseSunset(list.get(0).getCurrent().getSunset()));
-                mTemperature.setText(getResources().getString(R.string.temperature,
+                mCurrentBinding.currentDatetime.setText(mConverseDate.converseDate(list.get(0).getCurrent().getDateTime()));
+                mCurrentBinding.currentMainDescription.setText(getResources().getString(R.string.mainDesc,
+                        StringUtils.capitalize(list.get(0).getCurrent().getWeatherList().get(0).getMain())));
+
+                mCurrentBinding.currentSunrise.setText(mConverseDate.converseSunriseSunset(list.get(0).getCurrent().getSunrise()));
+                mCurrentBinding.currentSunset.setText(mConverseDate.converseSunriseSunset(list.get(0).getCurrent().getSunset()));
+                mCurrentBinding.currentTemperature.setText(getResources().getString(R.string.temperature,
                         list.get(0).getCurrent().getTemperature()));
-                mPressure.setText(getResources().getString(R.string.pressure,
+                mCurrentBinding.currentPressure.setText(getResources().getString(R.string.pressure,
                         list.get(0).getCurrent().getPressure()));
-                mHumidity.setText(getResources().getString(R.string.humidity,
+                mCurrentBinding.currentHumidity.setText(getResources().getString(R.string.humidity,
                         list.get(0).getCurrent().getHumidity()));
-                mWindSpeed.setText(getResources().getString(R.string.windSpeed,
+                mCurrentBinding.currentWindSpeed.setText(getResources().getString(R.string.windSpeed,
                         list.get(0).getCurrent().getWindSpeed()));
-                mFullDescription.setText(getResources().getString(R.string.fullDesc,
+                mCurrentBinding.currentFullDescription.setText(getResources().getString(R.string.fullDesc,
                         StringUtils.capitalize(list.get(0).getCurrent().getWeatherList().get(0).getDescription())));
 
 //              Setup ImageView's
-                mForecastIcon.loadIcon("01d", mSunriseIV);
-                mForecastIcon.loadIcon("01n", mSunsetIV);
+                mForecastIcon.loadIcon("01d", mCurrentBinding.currentSunriseIcon);
+                mForecastIcon.loadIcon("01n", mCurrentBinding.currentSunsetIcon);
                 mForecastIcon.loadIcon(
                         list.get(0).getCurrent().getWeatherList().get(0).getIconId(),
-                        mForecastIV
+                        mCurrentBinding.currentIcon
                 );
             }
         });

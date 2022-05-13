@@ -20,6 +20,7 @@ import com.example.myforecast.Adapters.HourlyForecastAdapter;
 import com.example.myforecast.Model.ForecastModel;
 import com.example.myforecast.R;
 import com.example.myforecast.ViewModel.ForecastViewModel;
+import com.example.myforecast.databinding.FragmentDailyForecastBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,7 @@ public class DailyForecast extends Fragment {
     private double mLatitude, mLongitude;
     private List<ForecastModel> mData = new ArrayList<>();
     private ForecastViewModel mViewModel;
+    private FragmentDailyForecastBinding mBinding;
 
 
     public DailyForecast(double mLatitude, double mLongitude) {
@@ -41,21 +43,18 @@ public class DailyForecast extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View fragmentView = inflater.inflate(R.layout.fragment_daily_forecast, container, false);
-
-        RecyclerView recyclerView = fragmentView.findViewById(R.id.daily_rv);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mBinding = FragmentDailyForecastBinding.inflate(getLayoutInflater());
+        mBinding.dailyRv.setLayoutManager(new LinearLayoutManager(getContext()));
+        mBinding.dailyRv.setHasFixedSize(true);
 
 
         mViewModel = ViewModelProviders.of(this).get(ForecastViewModel.class);
         mViewModel.getForecastData(40.730610, -73.935242).observe(this.getViewLifecycleOwner(), new Observer<List<ForecastModel>>() {
             @Override
             public void onChanged(List<ForecastModel> list) {
-                mData.addAll(list);
-                DailyForecastAdapter adapter = new DailyForecastAdapter(mData);
-                recyclerView.setAdapter(adapter);
+                mBinding.dailyRv.setAdapter(new DailyForecastAdapter(list));
             }
         });
-        return fragmentView;
+        return mBinding.getRoot();
     }
 }

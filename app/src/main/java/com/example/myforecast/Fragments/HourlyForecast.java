@@ -16,6 +16,8 @@ import com.example.myforecast.Adapters.HourlyForecastAdapter;
 import com.example.myforecast.Model.ForecastModel;
 import com.example.myforecast.R;
 import com.example.myforecast.ViewModel.ForecastViewModel;
+import com.example.myforecast.databinding.FragmentHourlyForecastBinding;
+import com.example.myforecast.databinding.HourlyItemsBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +25,10 @@ import java.util.List;
 public class HourlyForecast extends Fragment {
     private static final String TAG = "HourlyForecast";
     private double mLatitude, mLongitude;
-    private List<ForecastModel> mData = new ArrayList<>();
+    FragmentHourlyForecastBinding mBinding;
 
     public HourlyForecast(double mLatitude, double mLongitude) {
+
         this.mLatitude = mLatitude;
         this.mLongitude = mLongitude;
     }
@@ -33,24 +36,18 @@ public class HourlyForecast extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        mBinding = FragmentHourlyForecastBinding.inflate(getLayoutInflater());
 
-
-        View fragmentView = inflater.inflate(R.layout.fragment_hourly_forecast, container, false);
-
-        RecyclerView recyclerView = fragmentView.findViewById(R.id.hourly_rv);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setHasFixedSize(true);
-
+        mBinding.hourlyRv.setLayoutManager(new LinearLayoutManager(getContext()));
+        mBinding.hourlyRv.setHasFixedSize(true);
         ForecastViewModel viewModel = ViewModelProviders.of(this).get(ForecastViewModel.class);
-
         viewModel.getForecastData(40.730610, -73.935242).observe(getViewLifecycleOwner(), new Observer<List<ForecastModel>>() {
             @Override
             public void onChanged(List<ForecastModel> forecastModels) {
-                mData.addAll(forecastModels);
-                HourlyForecastAdapter adapter = new HourlyForecastAdapter(forecastModels);
-                recyclerView.setAdapter(adapter);
+
+                mBinding.hourlyRv.setAdapter(new HourlyForecastAdapter(forecastModels));
             }
         });
-        return fragmentView;
+        return mBinding.getRoot();
     }
 }
