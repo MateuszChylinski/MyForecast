@@ -4,14 +4,11 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myforecast.Date.ConverseDate;
+import com.example.myforecast.Date.ConvertData;
 import com.example.myforecast.Model.ForecastModel;
 import com.example.myforecast.Picasso.ForecastIcon;
 import com.example.myforecast.R;
@@ -24,7 +21,7 @@ import java.util.List;
 
 public class DailyForecastAdapter extends RecyclerView.Adapter<DailyForecastAdapter.ViewHolder> {
 
-    private ConverseDate mConverseDate = new ConverseDate();
+    private ConvertData mConvertData = new ConvertData();
     private ForecastIcon mIcon = new ForecastIcon();
 
     private List<ForecastModel> mData = new ArrayList<>();
@@ -64,15 +61,15 @@ public class DailyForecastAdapter extends RecyclerView.Adapter<DailyForecastAdap
         });
 
 
-        holder.mBinding.dailySunrise.setText(mConverseDate.converseSunriseSunset(mData.get(0).getDailyForecast().get(position).getSunrise()));
-        holder.mBinding.dailySunset.setText(mConverseDate.converseSunriseSunset(mData.get(0).getDailyForecast().get(position).getSunset()));
+        holder.mBinding.dailySunrise.setText(mConvertData.convertSunriseSunset(mData.get(0).getDailyForecast().get(position).getSunrise()));
+        holder.mBinding.dailySunset.setText(mConvertData.convertSunriseSunset(mData.get(0).getDailyForecast().get(position).getSunset()));
         holder.mBinding.dailyMinTemp.setText(holder.itemView.getResources().getString(R.string.tempMin,
                 mData.get(0).getDailyForecast().get(position).getTemp().getMinimalTemp()));
         holder.mBinding.dailyMaxTemp.setText(holder.itemView.getResources().getString(R.string.tempMax,
                 mData.get(0).getDailyForecast().get(position).getTemp().getMaxTemp()));
         holder.mBinding.dailyMainDescription.setText(holder.itemView.getResources().getString(R.string.mainDesc,
                 StringUtils.capitalize(mData.get(0).getDailyForecast().get(position).getWeatherList().get(0).getMain())));
-        holder.mBinding.dailyDatetime.setText(mConverseDate.converseDate(mData.get(0).getDailyForecast().get(position).getDateTime()));
+        holder.mBinding.dailyDatetime.setText(mConvertData.convertDate(mData.get(0).getDailyForecast().get(position).getDateTime()));
         holder.mBinding.dailyTempMorning.setText(holder.itemView.getResources().getString(R.string.tempMorning,
                 mData.get(0).getDailyForecast().get(position).getTemp().getMorningTemp()));
         holder.mBinding.dailyTempDay.setText(holder.itemView.getResources().getString(R.string.tempDay,
@@ -100,7 +97,7 @@ public class DailyForecastAdapter extends RecyclerView.Adapter<DailyForecastAdap
         holder.mBinding.dailyWindGust.setText(holder.itemView.getResources().getString(R.string.windGust,
                 mData.get(0).getDailyForecast().get(position).getWindGust()));
         holder.mBinding.dailyPop.setText(holder.itemView.getResources().getString(R.string.pop,
-                mData.get(0).getDailyForecast().get(position).getPop()));
+                mConvertData.convertPop(mData.get(0).getDailyForecast().get(position).getPop())));
         holder.mBinding.dailyFullDescription.setText(holder.itemView.getResources().getString(R.string.fullDesc,
                 StringUtils.capitalize(mData.get(0).getDailyForecast().get(position).getWeatherList().get(0).getDescription())));
 

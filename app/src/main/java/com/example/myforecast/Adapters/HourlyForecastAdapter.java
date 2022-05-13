@@ -5,31 +5,25 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myforecast.Date.ConverseDate;
-import com.example.myforecast.Fragments.HourlyForecast;
+import com.example.myforecast.Date.ConvertData;
 import com.example.myforecast.Picasso.ForecastIcon;
 import com.example.myforecast.Model.ForecastModel;
 
 import com.example.myforecast.R;
-import com.example.myforecast.databinding.FragmentHourlyForecastBinding;
 import com.example.myforecast.databinding.HourlyItemsBinding;
 
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.ViewHolder> {
     private List<ForecastModel> mData = new ArrayList<>();
-    private ConverseDate mConverseDate = new ConverseDate();
+    private ConvertData mConvertData = new ConvertData();
     private ForecastIcon mIconLoader = new ForecastIcon();
 
     private int mExpandedPosition = -1;
@@ -66,7 +60,7 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
 
 
 
-        holder.itemsBinding.hourlyDatetime.setText(mConverseDate.converseDate(mData.get(0).getHourlyForecast().get(position).getDateTime()));
+        holder.itemsBinding.hourlyDatetime.setText(mConvertData.convertDate(mData.get(0).getHourlyForecast().get(position).getDateTime()));
         holder.itemsBinding.hourlyMainDescription.setText(holder.itemView.getResources().getString(R.string.mainDesc,
                 StringUtils.capitalize(mData.get(0).getHourlyForecast().get(position).getWeatherList().get(0).getMain())));
         holder.itemsBinding.hourlyTemperature.setText(holder.itemView.getResources().getString(R.string.temperature,
@@ -90,13 +84,15 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
         holder.itemsBinding.hourlyWindGust.setText(holder.itemView.getResources().getString(R.string.windGust,
                 mData.get(0).getHourlyForecast().get(position).getWindGust()));
         holder.itemsBinding.hourlyPop.setText(holder.itemView.getResources().getString(R.string.pop,
-                mData.get(0).getHourlyForecast().get(position).getPop()));
+                mConvertData.convertPop(mData.get(0).getHourlyForecast().get(position).getPop())));
         holder.itemsBinding.hourlyFullDescription.setText(holder.itemView.getResources().getString(R.string.fullDesc,
                 StringUtils.capitalize(mData.get(0).getHourlyForecast().get(position).getWeatherList().get(0).getDescription())));
 
         mIconLoader.loadIcon(mData.get(0).getHourlyForecast().get(position).getWeatherList().get(0).getIconId(),
                 holder.itemsBinding.hourlyIcon);
     }
+
+
 
     @Override
     public int getItemCount() {

@@ -10,10 +10,8 @@ import androidx.lifecycle.ViewModelProviders;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.example.myforecast.Date.ConverseDate;
+import com.example.myforecast.Date.ConvertData;
 import com.example.myforecast.Model.ForecastModel;
 import com.example.myforecast.Picasso.ForecastIcon;
 import com.example.myforecast.R;
@@ -30,7 +28,7 @@ public class CurrentForecast extends Fragment {
     private FragmentCurrentForecastBinding mCurrentBinding;
     private ForecastViewModel mViewModel;
 
-    private ConverseDate mConverseDate;
+    private ConvertData mConvertData;
     private ForecastIcon mForecastIcon;
 
     private double mLatitude, mLongitude;
@@ -47,7 +45,7 @@ public class CurrentForecast extends Fragment {
 
         mCurrentBinding = FragmentCurrentForecastBinding.inflate(getLayoutInflater(), container, false);
 
-        mConverseDate = new ConverseDate();
+        mConvertData = new ConvertData();
         mForecastIcon = new ForecastIcon();
 
         getForecastData();
@@ -62,12 +60,12 @@ public class CurrentForecast extends Fragment {
             public void onChanged(List<ForecastModel> list) {
 
 //              Setup TextView's
-                mCurrentBinding.currentDatetime.setText(mConverseDate.converseDate(list.get(0).getCurrent().getDateTime()));
+                mCurrentBinding.currentDatetime.setText(mConvertData.convertDate(list.get(0).getCurrent().getDateTime()));
                 mCurrentBinding.currentMainDescription.setText(getResources().getString(R.string.mainDesc,
                         StringUtils.capitalize(list.get(0).getCurrent().getWeatherList().get(0).getMain())));
 
-                mCurrentBinding.currentSunrise.setText(mConverseDate.converseSunriseSunset(list.get(0).getCurrent().getSunrise()));
-                mCurrentBinding.currentSunset.setText(mConverseDate.converseSunriseSunset(list.get(0).getCurrent().getSunset()));
+                mCurrentBinding.currentSunrise.setText(mConvertData.convertSunriseSunset(list.get(0).getCurrent().getSunrise()));
+                mCurrentBinding.currentSunset.setText(mConvertData.convertSunriseSunset(list.get(0).getCurrent().getSunset()));
                 mCurrentBinding.currentTemperature.setText(getResources().getString(R.string.temperature,
                         list.get(0).getCurrent().getTemperature()));
                 mCurrentBinding.currentPressure.setText(getResources().getString(R.string.pressure,
