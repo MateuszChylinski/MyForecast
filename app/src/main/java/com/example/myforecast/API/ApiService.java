@@ -7,6 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface ApiService {
+//  Declare the api call
     @GET("/data/2.5/onecall")
     Call<ForecastModel> getRecentForecast(
             @Query("lat") double lat,

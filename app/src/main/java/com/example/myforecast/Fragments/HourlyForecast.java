@@ -24,7 +24,7 @@ import java.util.List;
 
 public class HourlyForecast extends Fragment {
     private static final String TAG = "HourlyForecast";
-    private double mLatitude, mLongitude;
+    private final double mLatitude, mLongitude;
     FragmentHourlyForecastBinding mBinding;
 
     public HourlyForecast(double mLatitude, double mLongitude) {
@@ -40,6 +40,7 @@ public class HourlyForecast extends Fragment {
 
         mBinding.hourlyRv.setLayoutManager(new LinearLayoutManager(getContext()));
         mBinding.hourlyRv.setHasFixedSize(true);
+//        TODO DEPRECATED
         ForecastViewModel viewModel = ViewModelProviders.of(this).get(ForecastViewModel.class);
         viewModel.getForecastData(mLatitude, mLongitude).observe(getViewLifecycleOwner(), new Observer<List<ForecastModel>>() {
             @Override

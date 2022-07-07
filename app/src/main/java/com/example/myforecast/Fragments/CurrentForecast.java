@@ -26,19 +26,19 @@ import java.util.List;
 public class CurrentForecast extends Fragment {
 
     private FragmentCurrentForecastBinding mCurrentBinding;
-    private ForecastViewModel mViewModel;
 
     private ConvertData mConvertData;
     private ForecastIcon mForecastIcon;
 
-    private double mLatitude, mLongitude;
-    private List<ForecastModel> mForecastData = new ArrayList<>();
+    private final double mLatitude, mLongitude;
+    private final List<ForecastModel> mForecastData = new ArrayList<>();
 
     public CurrentForecast(double mLatitude, double mLongitude) {
         this.mLatitude = mLatitude;
         this.mLongitude = mLongitude;
     }
 
+// TODO should I call here the gesture detector? What about other things?
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class CurrentForecast extends Fragment {
     }
 
     private void getForecastData() {
-        mViewModel = ViewModelProviders.of(this).get(ForecastViewModel.class);
+        ForecastViewModel mViewModel = ViewModelProviders.of(this).get(ForecastViewModel.class);
         mViewModel.getForecastData(mLatitude, mLongitude).observe(getViewLifecycleOwner(), new Observer<List<ForecastModel>>() {
             @SuppressLint("StringFormatMatches")
             @Override

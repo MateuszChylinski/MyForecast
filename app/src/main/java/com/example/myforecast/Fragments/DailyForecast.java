@@ -28,11 +28,9 @@ import java.util.List;
 
 public class DailyForecast extends Fragment {
     private static final String TAG = "DailyForecast";
-    private double mLatitude, mLongitude;
-    private List<ForecastModel> mData = new ArrayList<>();
-    private ForecastViewModel mViewModel;
+    private final double mLatitude, mLongitude;
+    private final List<ForecastModel> mData = new ArrayList<>();
     private FragmentDailyForecastBinding mBinding;
-
 
     public DailyForecast(double mLatitude, double mLongitude) {
         this.mLatitude = mLatitude;
@@ -47,8 +45,9 @@ public class DailyForecast extends Fragment {
         mBinding.dailyRv.setLayoutManager(new LinearLayoutManager(getContext()));
         mBinding.dailyRv.setHasFixedSize(true);
 
+//        TODO DEPRECATED
 
-        mViewModel = ViewModelProviders.of(this).get(ForecastViewModel.class);
+        ForecastViewModel mViewModel = ViewModelProviders.of(this).get(ForecastViewModel.class);
         mViewModel.getForecastData(mLatitude, mLongitude).observe(this.getViewLifecycleOwner(), new Observer<List<ForecastModel>>() {
             @Override
             public void onChanged(List<ForecastModel> list) {

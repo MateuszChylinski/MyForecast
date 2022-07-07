@@ -16,10 +16,6 @@ import retrofit2.Response;
 public class ForecastRepository {
     private ApiService mApi;
     private static final MutableLiveData<List<ForecastModel>> liveData = new MutableLiveData<>();
-    private static final String TAG = "ForecastRepository";
-
-    private int mLatitude, mLongitude;
-
     private static ForecastRepository forecastRepository;
 
     public static ForecastRepository getInstance() {
@@ -33,6 +29,7 @@ public class ForecastRepository {
         mApi = RetrofitBuilder.getRetrofitInstance().create(ApiService.class);
     }
 
+//  Make a call via api, and fill "liveData" with JSON response from the server
     public MutableLiveData<List<ForecastModel>> getApiData(double lat, double lon, String apiKey, String units) {
         Call<ForecastModel> forecast = mApi.getRecentForecast(lat, lon, apiKey, units);
         forecast.enqueue(new Callback<ForecastModel>() {
