@@ -54,7 +54,7 @@ public class CurrentForecast extends Fragment {
 
     private void getForecastData() {
         mViewModel = ViewModelProviders.of(this).get(ForecastViewModel.class);
-        mViewModel.getForecastData(40.730610, -73.935242).observe(getViewLifecycleOwner(), new Observer<List<ForecastModel>>() {
+        mViewModel.getForecastData(mLatitude, mLongitude).observe(getViewLifecycleOwner(), new Observer<List<ForecastModel>>() {
             @SuppressLint("StringFormatMatches")
             @Override
             public void onChanged(List<ForecastModel> list) {
