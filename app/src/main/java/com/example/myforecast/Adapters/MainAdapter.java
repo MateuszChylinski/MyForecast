@@ -28,12 +28,12 @@ public class MainAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 1:
-                return new HourlyForecast(mLatitude, mLongitude);
+                return HourlyForecast.newHourlyInstance(mLatitude, mLongitude);
             case 2:
-                return new DailyForecast(mLatitude, mLongitude);
+                return DailyForecast.newDailyInstance(mLatitude, mLongitude);
 //                Return current forecast, as a default.
             default:
-                return new CurrentForecast(mLatitude, mLongitude);
+                return CurrentForecast.newCurrentInstance(mLatitude, mLongitude);
         }
     }
 }

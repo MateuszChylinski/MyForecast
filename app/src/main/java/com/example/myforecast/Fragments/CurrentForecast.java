@@ -1,10 +1,12 @@
 package com.example.myforecast.Fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
@@ -30,16 +32,22 @@ public class CurrentForecast extends Fragment {
     private ConvertData mConvertData;
     private ForecastIcon mForecastIcon;
 
-    private final double mLatitude, mLongitude;
-    private final List<ForecastModel> mForecastData = new ArrayList<>();
+    private double mLatitude, mLongitude;
 
-    public CurrentForecast(double mLatitude, double mLongitude) {
-        this.mLatitude = mLatitude;
-        this.mLongitude = mLongitude;
+    public static CurrentForecast newCurrentInstance (double mLatitude, double mLongitude) {
+        Bundle bundle = new Bundle();
+        bundle.putDouble("latitude", mLatitude);
+        bundle.putDouble("longitude", mLongitude);
+
+        CurrentForecast mFragment = new CurrentForecast();
+        mFragment.setArguments(bundle);
+        return mFragment;
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        retrieveLocalization();
 
         mCurrentBinding = FragmentCurrentForecastBinding.inflate(getLayoutInflater(), container, false);
 
@@ -47,11 +55,18 @@ public class CurrentForecast extends Fragment {
         mForecastIcon = new ForecastIcon();
 
         getForecastData();
+
         return mCurrentBinding.getRoot();
     }
 
+    private void retrieveLocalization(){
+        if (getArguments() != null) {
+            mLatitude = getArguments().getDouble("latitude");
+            mLongitude = getArguments().getDouble("longitude");
+        }
+    }
     private void getForecastData() {
-        ForecastViewModel mViewModel = ViewModelProviders.of(this).get(ForecastViewModel.class);
+        ForecastViewModel mViewModel = new ViewModelProvider(this).get(ForecastViewModel.class);
         mViewModel.getForecastData(mLatitude, mLongitude).observe(getViewLifecycleOwner(), new Observer<List<ForecastModel>>() {
             @SuppressLint("StringFormatMatches")
             @Override
