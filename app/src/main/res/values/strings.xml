@@ -21,4 +21,6 @@
     <string name="mainDesc">Main description: %s</string>
     <string name="fullDesc">Full description: %s</string>
     <string name="pop">Probability of precipitation: %.0f%%</string>
+    <string name="checkInternetConnection">Check internet connection</string>
+    <string name="noInternetConnectionToast">Provide internet connection to receive forecast data</string>
 </resources>

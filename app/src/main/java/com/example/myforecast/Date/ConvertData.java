@@ -16,6 +16,12 @@ public class ConvertData {
         return format.format(date);
     }
 
+    public String convertDailytDate(long unixDate) {
+        Date date = new Date(unixDate * 1000L);
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("d, EEEE");
+        return format.format(date);
+    }
+
     public String convertSunriseSunset(long unixDate) {
         Date date = new Date(unixDate * 1000L);
         @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("HH:mm");

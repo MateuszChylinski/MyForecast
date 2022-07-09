@@ -28,7 +28,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:paddingBottom="3dp"
-                    android:text="DateTime "
                     android:textSize="25sp"
                     android:layout_marginStart="10dp"/>
 
@@ -65,7 +64,6 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="22dp"
                         android:layout_toEndOf="@+id/daily_sunrise_icon"
-                        android:text="00:00 XX"
                         android:textSize="16sp" />
 
                     <ImageView
@@ -83,7 +81,6 @@
                         android:layout_marginStart="14dp"
                         android:layout_marginTop="34dp"
                         android:layout_toEndOf="@+id/daily_sunset_icon"
-                        android:text="00:00 XX"
                         android:textSize="16sp" />
                 </RelativeLayout>
 
@@ -91,7 +88,6 @@
                     android:id="@+id/daily_main_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Main description"
                     android:textSize="18sp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="25dp"/>
@@ -99,7 +95,6 @@
                     android:id="@+id/daily_min_temp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Min temp"
                     android:textSize="18sp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"/>
@@ -107,7 +102,6 @@
                     android:id="@+id/daily_max_temp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Max temp"
                     android:textSize="18sp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"/>
@@ -117,7 +111,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Pressure"
                     android:textSize="18sp"
                     android:layout_marginStart="10dp"/>
 
@@ -126,7 +119,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Humidity"
                     android:textSize="18sp"
                     android:layout_marginStart="10dp"/>
                 <TextView
@@ -134,7 +126,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Cloudiness"
                     android:textSize="18sp"
                     android:layout_marginStart="10dp"/>
                 <TextView
@@ -142,7 +133,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Wind km/h"
                     android:textSize="18sp"
                     android:layout_marginStart="10dp"/>
                 <TextView
@@ -150,7 +140,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Wind km/h"
                     android:textSize="18sp"
                     android:layout_marginStart="10dp"/>
                 <TextView
@@ -158,7 +147,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="LOREM IPSUM FULL"
                     android:textSize="18sp"
                     android:layout_marginStart="10dp"/>
 
