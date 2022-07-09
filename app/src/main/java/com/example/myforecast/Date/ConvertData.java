@@ -6,6 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ConvertData {
+    /*
+    * Methods that can be used to convert provided by API data in unix, into readable format for user
+    * */
 
     public String convertDate(long unixDate) {
         Date date = new Date(unixDate * 1000L);

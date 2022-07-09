@@ -23,8 +23,8 @@ import java.util.List;
 
 public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAdapter.ViewHolder> {
     private List<ForecastModel> mData = new ArrayList<>();
-    private ConvertData mConvertData = new ConvertData();
-    private ForecastIcon mIconLoader = new ForecastIcon();
+    private final ConvertData mConvertData = new ConvertData();
+    private final ForecastIcon mIconLoader = new ForecastIcon();
 
     private int mExpandedPosition = -1;
     private int previousExpandedPosition = -1;
@@ -58,8 +58,6 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
             }
         });
 
-
-
         holder.itemsBinding.hourlyDatetime.setText(mConvertData.convertDate(mData.get(0).getHourlyForecast().get(position).getDateTime()));
         holder.itemsBinding.hourlyMainDescription.setText(holder.itemView.getResources().getString(R.string.mainDesc,
                 StringUtils.capitalize(mData.get(0).getHourlyForecast().get(position).getWeatherList().get(0).getMain())));
@@ -71,8 +69,6 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
                 mData.get(0).getHourlyForecast().get(position).getHumidity()));
         holder.itemsBinding.hourlyWindSpeed.setText(holder.itemView.getResources().getString(R.string.windSpeed,
                 mData.get(0).getHourlyForecast().get(position).getWindSpeed()));
-
-
 
 //      After layout expand
         holder.itemsBinding.hourlyFeelsLike.setText(holder.itemView.getResources().getString(R.string.temperatureFeelsLike,
@@ -92,13 +88,10 @@ public class HourlyForecastAdapter extends RecyclerView.Adapter<HourlyForecastAd
                 holder.itemsBinding.hourlyIcon);
     }
 
-
-
     @Override
     public int getItemCount() {
         return mData.get(0).getHourlyForecast().size();
     }
-
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         private final HourlyItemsBinding itemsBinding;

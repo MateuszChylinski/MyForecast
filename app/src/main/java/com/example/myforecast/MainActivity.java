@@ -1,22 +1,15 @@
 package com.example.myforecast;
 
-import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.location.LocationManagerCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.Manifest;
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -27,12 +20,9 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.location.LocationRequest;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
@@ -44,19 +34,9 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.myforecast.Adapters.MainAdapter;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.SettingsClient;
+
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -65,55 +45,72 @@ public class MainActivity extends AppCompatActivity {
 
     private final String[] mPermissions = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
     private final int REQUEST_CODE = 1;
+    private boolean isNetworkAvailable;
 
     private ActivityResultLauncher<Intent> mLocationServiceResult;
     private ActivityResultLauncher<Intent> mLocationPermissionResult;
 
-    private LinearLayout mLayout;
-
-//    TODO AFTER DECLINE OF PERMISSIONS, THE RATIONALE MENU SHOWS UP, BUT INSTEAD OF MOVING USER TO THE APP "SETTINGS" IT IS DISPLAYING THE RATIONALE ONCE AGAIN.
+    //    TODO AFTER DECLINE OF PERMISSIONS, THE RATIONALE MENU SHOWS UP, BUT INSTEAD OF MOVING USER TO THE APP "SETTINGS" IT IS DISPLAYING THE RATIONALE ONCE AGAIN.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//      Main, linear layout. Needed in case the user device has lack of the network connection, so it can detect double tap on screen, to call the checkInternetConnection.
+
 
 //      Prepare ActivityResultLauncher in case if permissions are missing, and was declined once.
         mLocationPermissionResult = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
-                                ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                           getDeviceLocation();
-                        }
+                result -> {
+                    if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+                            ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        getDeviceLocation();
                     }
                 }
         );
 //      Prepare ActivityResultLaunch in case if Location service is turned off, so user can manually turn it on in the app settings.
         mLocationServiceResult = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        checkLocationServices();
-                    }
-                }
+                result -> checkLocationServices()
         );
 //      Check if the location service is on
         checkInternetConnection();
     }
 
 
-
-    private void checkInternetConnection(){
+    private void checkInternetConnection() {
         ConnectivityManager manager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = manager.getActiveNetworkInfo();
-        if (info != null && info.isAvailable() && info.isConnected()){
-           checkLocationServices();
-        }else {
-            Toast.makeText(this, "Application requires stable network connection", Toast.LENGTH_LONG).show();
+        if (info != null && info.isAvailable() && info.isConnected()) {
+            checkLocationServices();
+        } else {
+            isNetworkAvailable = false;
+            Toast.makeText(this, "Application requires stable network connection. Tap twice on screen to reset", Toast.LENGTH_LONG).show();
+            detectGestures();
+        }
+    }
+
+    //  Method which will detect double tap in case user turned on wifi/mobile data to get forecast. This method will detect double tap, and then, check if the there's any stable network connection.
+    @SuppressLint("ClickableViewAccessibility")
+    private void detectGestures() {
+        Log.i(TAG, "detectGestures: "+isNetworkAvailable);
+        if (!isNetworkAvailable) {
+            Log.i(TAG, "detectGestures: hi");
+            LinearLayout mLayout = findViewById(R.id.main_layout);
+            GestureDetector gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onDoubleTap(MotionEvent e) {
+                    Log.i(TAG, "test");
+                    return true;
+                }
+            });
+            mLayout.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return gestureDetector.onTouchEvent(event);
+                }
+            });
         }
     }
 
@@ -135,8 +132,6 @@ public class MainActivity extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED || grantResults.length > 0 && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 Log.i(TAG, "onRequestPermissionsResult: Perform future tasks. Check if location service is enabled");
                 getDeviceLocation();
-
-
             } else {
                 Log.i(TAG, "onRequestPermissionsResult: explain why user cant get forecast (it's because he didnt granted permissions)");
                 new AlertDialog.Builder(this)
@@ -189,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
             public void onLocationChanged(@NonNull Location location) {
                 setupFragments(location.getLatitude(), location.getLongitude());
             }
+
             @Override
             public void onProviderDisabled(@NonNull String provider) {
                 checkLocationServices();
@@ -197,14 +193,11 @@ public class MainActivity extends AppCompatActivity {
         locationManager.requestSingleUpdate(provider, locationListener, Looper.getMainLooper());
     }
 
-//TODO What if the network is off?
     private void checkLocationServices() {
-        Log.i(TAG, "checkLocationServices: ");
         LocationManager mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
                 !mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setTitle("Location services are disabled");
             dialogBuilder.setMessage("Please enable location services in order to get proper forecast");
@@ -232,11 +225,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setupFragments(double latitude, double longitude) {
-
         ViewPager2 pager = findViewById(R.id.pager_test);
         pager.setAdapter(new MainAdapter(this, latitude, longitude));
-
-
 
         TabLayout tabLayout = findViewById(R.id.tab_test);
         new TabLayoutMediator(

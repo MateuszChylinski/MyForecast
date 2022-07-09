@@ -10,7 +10,7 @@ import com.example.myforecast.Fragments.HourlyForecast;
 import com.example.myforecast.Fragments.CurrentForecast;
 
 public class MainAdapter extends FragmentStateAdapter {
-    private double mLatitude, mLongitude;
+    private final double mLatitude, mLongitude;
 
     public MainAdapter(@NonNull FragmentActivity fragmentActivity, double latitude, double longitude) {
         super(fragmentActivity);
