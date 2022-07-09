@@ -37,8 +37,6 @@ public class CurrentForecast extends Fragment {
         this.mLatitude = mLatitude;
         this.mLongitude = mLongitude;
     }
-
-// TODO should I call here the gesture detector? What about other things?
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

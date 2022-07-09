@@ -69,7 +69,7 @@ public class DailyForecastAdapter extends RecyclerView.Adapter<DailyForecastAdap
                 mData.get(0).getDailyForecast().get(position).getTemp().getMaxTemp()));
         holder.mBinding.dailyMainDescription.setText(holder.itemView.getResources().getString(R.string.mainDesc,
                 StringUtils.capitalize(mData.get(0).getDailyForecast().get(position).getWeatherList().get(0).getMain())));
-        holder.mBinding.dailyDatetime.setText(mConvertData.convertDate(mData.get(0).getDailyForecast().get(position).getDateTime()));
+        holder.mBinding.dailyDatetime.setText(mConvertData.convertDailytDate(mData.get(0).getDailyForecast().get(position).getDateTime()));
         holder.mBinding.dailyTempMorning.setText(holder.itemView.getResources().getString(R.string.tempMorning,
                 mData.get(0).getDailyForecast().get(position).getTemp().getMorningTemp()));
         holder.mBinding.dailyTempDay.setText(holder.itemView.getResources().getString(R.string.tempDay,

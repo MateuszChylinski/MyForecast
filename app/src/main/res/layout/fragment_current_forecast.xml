@@ -29,7 +29,6 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="15dp"
                     android:paddingBottom="3dp"
-                    android:text="DateTime "
                     android:textSize="25sp" />
 
                 <ImageView
@@ -65,7 +64,6 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="31dp"
                         android:layout_toEndOf="@+id/current_sunrise_icon"
-                        android:text="00:00 XX"
                         android:textSize="16sp" />
 
                     <ImageView
@@ -84,7 +82,6 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="49dp"
                         android:layout_toEndOf="@+id/current_sunset_icon"
-                        android:text="00:00 XX"
                         android:textSize="16sp" />
                 </RelativeLayout>
 
@@ -92,7 +89,6 @@
                     android:id="@+id/current_main_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Main description"
                     android:layout_marginTop="25dp"
                     android:textSize="18sp"
                     android:layout_marginStart="10dp"/>
@@ -101,7 +97,6 @@
                     android:id="@+id/current_temperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Temperature"
                     android:textSize="18sp"
                     android:layout_marginTop="5dp"
                     android:layout_marginStart="10dp"/>
@@ -111,7 +106,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Pressure"
                     android:textSize="18sp"
                     android:layout_marginStart="10dp"/>
 
@@ -120,7 +114,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Humidity"
                     android:textSize="18sp"
                     android:layout_marginStart="10dp"/>
 
@@ -129,7 +122,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Wind km/h"
                     android:textSize="18sp"
                     android:layout_marginStart="10dp"/>
 
@@ -138,7 +130,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Full desc"
                     android:textSize="18sp"
                     android:layout_marginStart="10dp"/>
             </LinearLayout>
