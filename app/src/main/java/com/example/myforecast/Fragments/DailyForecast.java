@@ -49,7 +49,7 @@ public class DailyForecast extends Fragment {
 
 
         mViewModel = ViewModelProviders.of(this).get(ForecastViewModel.class);
-        mViewModel.getForecastData(40.730610, -73.935242).observe(this.getViewLifecycleOwner(), new Observer<List<ForecastModel>>() {
+        mViewModel.getForecastData(mLatitude, mLongitude).observe(this.getViewLifecycleOwner(), new Observer<List<ForecastModel>>() {
             @Override
             public void onChanged(List<ForecastModel> list) {
                 mBinding.dailyRv.setAdapter(new DailyForecastAdapter(list));
