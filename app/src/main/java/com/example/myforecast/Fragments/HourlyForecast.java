@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,25 +24,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HourlyForecast extends Fragment {
-    private static final String TAG = "HourlyForecast";
-    private final double mLatitude, mLongitude;
-    FragmentHourlyForecastBinding mBinding;
+    private  double mLatitude, mLongitude;
+    private FragmentHourlyForecastBinding mBinding;
 
-    public HourlyForecast(double mLatitude, double mLongitude) {
+    public static HourlyForecast newHourlyInstance(double mLatitude, double mLongitude) {
+        Bundle bundle = new Bundle();
+        bundle.putDouble("latitude", mLatitude);
+        bundle.putDouble("longitude", mLongitude);
 
-        this.mLatitude = mLatitude;
-        this.mLongitude = mLongitude;
+        HourlyForecast mFragment = new HourlyForecast();
+        mFragment.setArguments(bundle);
+        return mFragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        retrieveLocalization();
+
         mBinding = FragmentHourlyForecastBinding.inflate(getLayoutInflater());
 
         mBinding.hourlyRv.setLayoutManager(new LinearLayoutManager(getContext()));
         mBinding.hourlyRv.setHasFixedSize(true);
-//        TODO DEPRECATED
-        ForecastViewModel viewModel = ViewModelProviders.of(this).get(ForecastViewModel.class);
+
+        ForecastViewModel viewModel = new ViewModelProvider(this).get(ForecastViewModel.class);
         viewModel.getForecastData(mLatitude, mLongitude).observe(getViewLifecycleOwner(), new Observer<List<ForecastModel>>() {
             @Override
             public void onChanged(List<ForecastModel> forecastModels) {
@@ -50,5 +56,12 @@ public class HourlyForecast extends Fragment {
             }
         });
         return mBinding.getRoot();
+    }
+
+    private void retrieveLocalization(){
+        if (getArguments() != null){
+            mLatitude = getArguments().getDouble("latitude");
+            mLongitude = getArguments().getDouble("longitude");
+        }
     }
 }

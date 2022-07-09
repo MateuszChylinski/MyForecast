@@ -9,8 +9,6 @@
     tools:context=".MainActivity"
     android:weightSum="3">
 
-
-
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_test"
         android:layout_width="match_parent"

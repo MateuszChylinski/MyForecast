@@ -27,27 +27,29 @@ import java.util.List;
 
 
 public class DailyForecast extends Fragment {
-    private static final String TAG = "DailyForecast";
-    private final double mLatitude, mLongitude;
-    private final List<ForecastModel> mData = new ArrayList<>();
+    private double mLatitude, mLongitude;
     private FragmentDailyForecastBinding mBinding;
 
-    public DailyForecast(double mLatitude, double mLongitude) {
-        this.mLatitude = mLatitude;
-        this.mLongitude = mLongitude;
-    }
+    public static DailyForecast newDailyInstance(double mLatitude, double mLongitude) {
+        Bundle bundle = new Bundle();
+        bundle.putDouble("latitude", mLatitude);
+        bundle.putDouble("longitude", mLongitude);
 
+        DailyForecast mFragment = new DailyForecast();
+        mFragment.setArguments(bundle);
+        return mFragment;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        retrieveLocalization();
 
         mBinding = FragmentDailyForecastBinding.inflate(getLayoutInflater());
         mBinding.dailyRv.setLayoutManager(new LinearLayoutManager(getContext()));
         mBinding.dailyRv.setHasFixedSize(true);
 
-//        TODO DEPRECATED
-
-        ForecastViewModel mViewModel = ViewModelProviders.of(this).get(ForecastViewModel.class);
+        ForecastViewModel mViewModel = new ViewModelProvider(this).get(ForecastViewModel.class);
         mViewModel.getForecastData(mLatitude, mLongitude).observe(this.getViewLifecycleOwner(), new Observer<List<ForecastModel>>() {
             @Override
             public void onChanged(List<ForecastModel> list) {
@@ -55,5 +57,12 @@ public class DailyForecast extends Fragment {
             }
         });
         return mBinding.getRoot();
+    }
+
+    private void retrieveLocalization(){
+        if (getArguments() != null){
+            mLatitude = getArguments().getDouble("latitude");
+            mLongitude = getArguments().getDouble("longitude");
+        }
     }
 }

@@ -219,23 +219,20 @@ Get user latitude and longitude, and then, pass it to the setupFragments method,
         String provider = locationManager.getBestProvider(criteria, true);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            Log.i(TAG, "getDeviceLocation: coarse graned " + provider);
+            Log.i(TAG, "getDeviceLocation: coarse granted " + provider);
         }
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             Log.i(TAG, "getDeviceLocation: fine granted " + provider);
         }
-        Log.i(TAG, "getDeviceLocation: hello?");
 
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
-                Log.i(TAG, "onLocationChanged: should work now");
                 setupFragments(location.getLatitude(), location.getLongitude());
             }
 
             @Override
             public void onProviderDisabled(@NonNull String provider) {
-                Log.i(TAG, "onProviderDisabled: or not");
                 checkLocationServices();
             }
         };
@@ -244,7 +241,6 @@ Get user latitude and longitude, and then, pass it to the setupFragments method,
 
 //  setup fragments
     private void setupFragments(double latitude, double longitude) {
-        Log.i(TAG, "setupFragments: sup");
         ViewPager2 pager = findViewById(R.id.pager_test);
         pager.setAdapter(new MainAdapter(this, latitude, longitude));
 
